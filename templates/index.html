@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fraud Detection</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="main">
+
+    <div class="card">
+
+        <h1>AI Fraud Detection</h1>
+        <p class="subtitle">Smart Financial Transaction Analyzer</p>
+
+        <form action="/predict" method="POST">
+
+            <select name="type">
+                <option value="TRANSFER">TRANSFER</option>
+                <option value="CASH_OUT">CASH OUT</option>
+                <option value="PAYMENT">PAYMENT</option>
+                <option value="CASH_IN">CASH IN</option>
+                <option value="DEBIT">DEBIT</option>
+            </select>
+
+            <input type="number" step="any" name="amount" placeholder="Transaction Amount" required>
+
+            <input type="number" step="any" name="oldbalanceOrg" placeholder="Sender Old Balance" required>
+
+            <input type="number" step="any" name="newbalanceOrig" placeholder="Sender New Balance" required>
+
+            <input type="number" step="any" name="oldbalanceDest" placeholder="Receiver Old Balance" required>
+
+            <input type="number" step="any" name="newbalanceDest" placeholder="Receiver New Balance" required>
+
+            <button type="submit">Analyze Transaction</button>
+
+        </form>
+
+        {% if prediction_text %}
+            <div class="result">
+                {{ prediction_text }}
+            </div>
+
+            <button onclick="window.location.href='/'" class="refresh-btn">
+                New Prediction
+            </button>
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
